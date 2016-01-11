@@ -1,0 +1,29 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+	echo usage: compressimg [directory or file]
+	exit
+fi
+
+# apply the compressimg script to every image file within the given directory
+# if the input is a single file, execute the script on it
+OLDSIZE=`du -sk $1 | awk '{ print $1}'`
+echo 'OLDSIZE'
+echo $OLDSIZE
+INPUTTYPE="Directory"
+
+# execute compression
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+if [ -d $1 ]; then
+	find $1 -type f \( -name "*.png" \) -exec $DIR/pngquantWrapper '{}' \;
+else
+	INPUTTYPE="File"
+	$DIR/pngquantWrapper $1
+fi
+
+NEWSIZE=`du -sk $1 | awk '{ print $1}'`
+let RESULT=100-$NEWSIZE*100/$OLDSIZE
+echo ''
+echo $1 Finished.
+echo 'NEWSIZE/OLDSIZE' $NEWSIZE'/'$OLDSIZE 
+echo 'TOTAL:'$RESULT'% COMPRESSED.'
+echo ''

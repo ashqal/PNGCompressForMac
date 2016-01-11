@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ -z "$1" ]; then
+        echo usage: compressimg [file]
+        echo This tool will apply common image optimization techniques to the given file.
+        exit
+fi
+OLDSIZE=`ls -l $1 | awk '{ print $5}'`
+
+./pngquant --force --skip-if-larger $1 --output $1.tmp
+
+if [ -f $1.tmp ]; then 
+mv $1.tmp $1
+fi 
+
+NEWSIZE=`ls -l $1 | awk '{ print $5}'`
+
+# show final stats
+let RESULT=100-$NEWSIZE*100/$OLDSIZE
+echo $1 $NEWSIZE'/'$OLDSIZE ' - ['$RESULT'% COMPRESSED]'
