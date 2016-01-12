@@ -7,8 +7,8 @@ fi
 # apply the compressimg script to every image file within the given directory
 # if the input is a single file, execute the script on it
 OLDSIZE=`du -sk $1 | awk '{ print $1}'`
-echo 'OLDSIZE'
-echo $OLDSIZE
+# echo 'OLDSIZE'
+# echo $OLDSIZE
 INPUTTYPE="Directory"
 
 # execute compression
