@@ -1,4 +1,5 @@
 # PNGCompressForMac
+Simple shell script to compress png file. It will compress all png file include in given directory.
 
 ## USAGE
 ```
@@ -6,7 +7,7 @@ sh PNGCompress PATH/TO/YOUR/RES
 ```
 
 ## NOTICE
-macos **only**
+MacOS **only**
 
 ## Reference
 * [pngquant](https://pngquant.org/)
